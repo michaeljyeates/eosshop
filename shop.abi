@@ -1,0 +1,71 @@
+{
+  "types": [],
+  "structs": [{
+      "name": "retailer",
+      "base": "",
+      "fields": {
+        "name": "string",
+        "url": "string"
+      }
+    },{
+      "name": "product",
+      "base": "",
+      "fields": {
+        "uid": "string",
+        "details": "product_details"
+      }
+    },{
+    "name": "product_details",
+    "base": "",
+    "fields": {
+      "name": "string",
+      "url": "string"
+    }
+  },{
+      "name": "msg_newretailer",
+      "base": "",
+      "fields": {
+        "account": "name",
+        "value": "retailer"
+      }
+    },{
+    "name": "msg_newproduct",
+    "base": "",
+    "fields": {
+      "account": "name",
+      "uid": "string",
+      "value": "product_details"
+    }
+  }
+  ],
+  "actions": [{
+      "action_name": "newretailer",
+      "type": "msg_newretailer"
+    },{
+    "action_name": "newproduct",
+    "type": "msg_newproduct"
+  }
+  ],
+  "tables": [{
+      "table_name": "retailer",
+      "index_type": "i64",
+      "key_names": [
+        "account"
+      ],
+      "key_types": [
+        "i64"
+      ],
+      "type": "msg_newretailer"
+    },{
+    "table_name": "producti",
+    "index_type": "str",
+    "key_names": [
+      "uid"
+    ],
+    "key_types": [
+      "string"
+    ],
+    "type": "product"
+  }
+  ]
+}
