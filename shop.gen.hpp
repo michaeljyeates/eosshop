@@ -15,18 +15,15 @@ namespace eosio { namespace raw {
     }
     // product packing
     template<typename Stream> inline void pack( Stream& s, const product& value ) {
-      //raw::pack(s, value.uid);
       raw::pack(s, value.details.name);
       raw::pack(s, value.details.url);
     }
     template<typename Stream> inline void unpack( Stream& s, product& value ) {
-      //raw::unpack(s, value.uid);
       raw::unpack(s, value.details.name);
       raw::unpack(s, value.details.url);
     }
     // product_details packing
    template<typename Stream> inline void pack( Stream& s, const product_details& value ) {
-      //raw::pack(s, value.uid);
       raw::pack(s, value.name);
       raw::pack(s, value.url);
    }

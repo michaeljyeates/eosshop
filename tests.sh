@@ -29,3 +29,4 @@ echo "RED products"
 eosc get table retailerred shop producti
 echo "BLUE products"
 eosc get table retailerblue shop producti
+
