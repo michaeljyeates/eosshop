@@ -6,6 +6,12 @@
 #include <eoslib/string.hpp>
 
 
+struct transfer {
+   eosio::string sender;
+   eosio::string recipient;
+   uint64_t amount;
+   eosio::string memo;
+};
 struct retailer {
    eosio::string name;
    eosio::string url;
@@ -13,6 +19,7 @@ struct retailer {
 struct product_details {
    eosio::string name;
    eosio::string url;
+   eosio::string jsonld;
 };
 struct product {
    eosio::string uid;
@@ -37,3 +44,15 @@ struct msg_newproduct {
    eosio::string uid;
    product_details value;
 };
+
+
+/* @abi action neworder
+ * @abi table
+
+struct msg_neworder {
+   eosio::string channel;
+   eosio::name customer;
+   eosio::string url;
+   eosio::price total;
+};
+*/

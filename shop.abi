@@ -1,12 +1,21 @@
 {
   "types": [],
   "structs": [{
-      "name": "retailer",
-      "base": "",
-      "fields": {
-        "name": "string",
-        "url": "string"
-      }
+  "name": "transfer",
+  "base": "",
+  "fields": {
+    "sender": "string",
+    "recipient": "string",
+    "amount": "uint64",
+    "memo": "string"
+  }
+    },{
+    "name": "retailer",
+    "base": "",
+    "fields": {
+      "name": "string",
+      "url": "string"
+    }
     },{
       "name": "product",
       "base": "",
@@ -19,7 +28,8 @@
     "base": "",
     "fields": {
       "name": "string",
-      "url": "string"
+      "url": "string",
+      "jsonld": "string"
     }
   },{
       "name": "msg_newretailer",
@@ -57,7 +67,7 @@
       ],
       "type": "msg_newretailer"
     },{
-    "table_name": "producti",
+    "table_name": "product",
     "index_type": "str",
     "key_names": [
       "uid"

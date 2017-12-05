@@ -3,7 +3,21 @@
 #include <eoslib/datastream.hpp>
 #include <eoslib/raw_fwd.hpp>
 
+
 namespace eosio { namespace raw {
+    // retailer packing
+    template<typename Stream> inline void pack( Stream& s, const transfer& value ) {
+      raw::pack(s, value.sender);
+      raw::pack(s, value.recipient);
+      raw::pack(s, value.amount);
+      raw::pack(s, value.memo);
+    }
+    template<typename Stream> inline void unpack( Stream& s, transfer& value ) {
+        raw::unpack(s, value.sender);
+        raw::unpack(s, value.recipient);
+        raw::unpack(s, value.amount);
+        raw::unpack(s, value.memo);
+    }
     // retailer packing
     template<typename Stream> inline void pack( Stream& s, const retailer& value ) {
       raw::pack(s, value.name);
@@ -26,11 +40,13 @@ namespace eosio { namespace raw {
    template<typename Stream> inline void pack( Stream& s, const product_details& value ) {
       raw::pack(s, value.name);
       raw::pack(s, value.url);
+      raw::pack(s, value.jsonld);
    }
    template<typename Stream> inline void unpack( Stream& s, product_details& value ) {
       //raw::unpack(s, value.uid);
       raw::unpack(s, value.name);
       raw::unpack(s, value.url);
+      raw::unpack(s, value.jsonld);
    }
 
     // msg_newretailer
@@ -83,6 +99,17 @@ namespace eosio {
    }
 
 
+   void dump(const transfer& value, int tab=0) {
+      print_ident(tab);print("sender:[");prints_l(value.sender.get_data(), value.sender.get_size());print("]\n");
+      print_ident(tab);print("recipient:[");prints_l(value.recipient.get_data(), value.recipient.get_size());print("]\n");
+      print_ident(tab);print("memo:[");prints_l(value.memo.get_data(), value.memo.get_size());print("]\n");
+   }
+   template<>
+   transfer current_message<transfer>() {
+      return current_message_ex<transfer>();
+   }
+
+
    void dump(const retailer& value, int tab=0) {
       print_ident(tab);print("name:[");prints_l(value.name.get_data(), value.name.get_size());print("]\n");
       print_ident(tab);print("url:[");prints_l(value.url.get_data(), value.url.get_size());print("]\n");
@@ -96,6 +123,7 @@ namespace eosio {
    void dump(const product& value, int tab=0) {
       print_ident(tab);print("name:[");prints_l(value.details.name.get_data(), value.details.name.get_size());print("]\n");
       print_ident(tab);print("url:[");prints_l(value.details.url.get_data(), value.details.url.get_size());print("]\n");
+      print_ident(tab);print("jsonld:[");prints_l(value.details.jsonld.get_data(), value.details.jsonld.get_size());print("]\n");
    }
    template<>
    product current_message<product>() {
