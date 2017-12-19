@@ -3,7 +3,21 @@
 #include <eoslib/datastream.hpp>
 #include <eoslib/raw_fwd.hpp>
 
+
 namespace eosio { namespace raw {
+    // retailer packing
+    template<typename Stream> inline void pack( Stream& s, const transfer& value ) {
+      raw::pack(s, value.sender);
+      raw::pack(s, value.recipient);
+      raw::pack(s, value.amount);
+      raw::pack(s, value.memo);
+    }
+    template<typename Stream> inline void unpack( Stream& s, transfer& value ) {
+        raw::unpack(s, value.sender);
+        raw::unpack(s, value.recipient);
+        raw::unpack(s, value.amount);
+        raw::unpack(s, value.memo);
+    }
     // retailer packing
     template<typename Stream> inline void pack( Stream& s, const retailer& value ) {
       raw::pack(s, value.name);
@@ -80,6 +94,17 @@ namespace eosio {
       eosio::raw::unpack(data, size, value);
       eosio::free(data);
       return value;
+   }
+
+
+   void dump(const transfer& value, int tab=0) {
+      print_ident(tab);print("sender:[");prints_l(value.sender.get_data(), value.sender.get_size());print("]\n");
+      print_ident(tab);print("recipient:[");prints_l(value.recipient.get_data(), value.recipient.get_size());print("]\n");
+      print_ident(tab);print("memo:[");prints_l(value.memo.get_data(), value.memo.get_size());print("]\n");
+   }
+   template<>
+   transfer current_message<transfer>() {
+      return current_message_ex<transfer>();
    }
 
 

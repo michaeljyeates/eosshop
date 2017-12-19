@@ -4,10 +4,11 @@
  */
 #include "shop.hpp"
 #include "shop.gen.hpp"
-
+#include <eoslib/types.hpp>
 #include <eoslib/db.hpp>
 #include <eoslib/types.hpp>
 #include <eoslib/raw.hpp>
+
 
 extern "C" {
    void init()  {
@@ -50,6 +51,25 @@ extern "C" {
              char * data = (char*)b.data;
 
              uint32_t success = store_str( msg.account, N(producti), (char *)msg.uid.get_data(), msg.uid.get_size(), data, len);
+
+          } else if( action == N(neworder) ) {
+
+             /*eosio::print("Parsing msg_neworder\n");
+             auto msg = eosio::current_message<msg_neworder>();
+
+             eosio::print("Verifying auth\n");
+             require_auth(msg.account);
+
+             eosio::print("Creating order\n");
+             eosio::dump(msg);*/
+
+          }
+      } else if( code == N(eos) ) {
+          if( action == N(transfer) ) {
+              eosio::print("GOT EOS transfer\n");
+              eosio::print( "MESSAGE: ", eosio::name(code), "->", eosio::name(action), "\n" );
+              auto msg = eosio::current_message<transfer>();
+              eosio::dump(msg);
           }
       }
    }
